@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { Eye } from "lucide-react";
 
 const projects = [
   {
@@ -32,17 +34,44 @@ const PortfolioSection = () => {
   const [activeProject, setActiveProject] = useState<number | null>(null);
 
   return (
-    <section id="portfolio" className="section-padding bg-white">
-      <div className="container-custom">
+    <section id="portfolio" className="section-padding bg-white relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-40 right-10 w-64 h-64 rounded-full bg-gradient-to-r from-portfolio-purple/5 to-portfolio-blue/5 blur-3xl"></div>
+        <div className="absolute bottom-40 left-10 w-80 h-80 rounded-full bg-gradient-to-r from-portfolio-yellow/5 to-portfolio-orange/5 blur-3xl"></div>
+      </div>
+
+      <div className="container-custom relative z-10">
         <div className="flex flex-col items-center mb-16">
-          <p className="text-portfolio-purple font-semibold">PORTFOLIO</p>
-          <h2 className="section-title text-center">Digital Product Showcases</h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-portfolio-purple font-semibold"
+          >
+            PORTFOLIO
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="section-title text-center"
+          >
+            Digital Product Showcases
+          </motion.h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div 
+          {projects.map((project, index) => (
+            <motion.div 
               key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
               className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
               onMouseEnter={() => setActiveProject(project.id)}
               onMouseLeave={() => setActiveProject(null)}
@@ -63,6 +92,18 @@ const PortfolioSection = () => {
                     <h3 className="text-xl font-bold text-white mb-1">{project.title}</h3>
                   </div>
                 </div>
+                
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: activeProject === project.id ? 1 : 0, 
+                    scale: activeProject === project.id ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-lg z-10"
+                >
+                  <Eye className="w-5 h-5 text-portfolio-purple" />
+                </motion.div>
               </div>
               
               <div className="p-6">
@@ -77,11 +118,23 @@ const PortfolioSection = () => {
                   ))}
                 </div>
                 
-                <a href="#" className="text-portfolio-purple font-medium hover:text-portfolio-blue transition-colors">
-                  View Details
+                <a 
+                  href="#" 
+                  className="text-portfolio-purple font-medium hover:text-portfolio-blue transition-colors inline-flex items-center group"
+                >
+                  <span>View Details</span>
+                  <svg 
+                    className="ml-1 w-4 h-4 transition-transform transform group-hover:translate-x-1" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
