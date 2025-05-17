@@ -10,6 +10,7 @@ import ContactSection from "@/components/ContactSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 
 const Index = () => {
   // Implement smooth scrolling for anchor links
@@ -36,16 +37,18 @@ const Index = () => {
   return (
     <div className="relative">
       <Header />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <PortfolioSection />
-        <ProcessSection />
-        <TestimonialsSection />
-        <ContactSection />
-        <CtaSection />
-      </main>
+      <AnimatePresence>
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <PortfolioSection />
+          <ProcessSection />
+          <TestimonialsSection />
+          <ContactSection />
+          <CtaSection />
+        </main>
+      </AnimatePresence>
       <Footer />
     </div>
   );

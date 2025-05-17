@@ -1,17 +1,29 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <section id="home" className="min-h-screen pt-24 pb-16 flex items-center bg-gradient-to-b from-white to-[#f5f3ff]">
-      <div className="container-custom grid md:grid-cols-2 gap-10 items-center">
-        <div className="order-2 md:order-1 animate-fade-in">
+    <section id="home" className="min-h-screen pt-24 pb-16 flex items-center bg-gradient-to-b from-white to-[#f5f3ff] relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-gradient-to-r from-portfolio-purple/10 to-portfolio-blue/10 blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-gradient-to-r from-portfolio-yellow/10 to-portfolio-orange/10 blur-3xl"></div>
+      </div>
+      
+      <div className="container-custom grid md:grid-cols-2 gap-10 items-center relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="order-2 md:order-1"
+        >
           <div className="flex items-center space-x-2 mb-4">
             <div className="h-1 w-10 bg-portfolio-purple rounded-full"></div>
             <p className="text-gray-600 font-medium">Hello, I'm</p>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-dark mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-portfolio-purple to-portfolio-blue">
             Right Siman Jena
           </h1>
           <h2 className="text-2xl md:text-3xl font-bold text-portfolio-purple mb-6">
@@ -23,48 +35,72 @@ const HeroSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="bg-portfolio-purple hover:bg-portfolio-blue text-white" asChild>
+            <Button 
+              className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue hover:opacity-90 text-white transition-all shadow-lg shadow-portfolio-purple/20" 
+              asChild
+            >
               <a href="#portfolio">View My Work</a>
             </Button>
-            <Button variant="outline" className="border-portfolio-purple text-portfolio-purple hover:bg-portfolio-purple hover:text-white" asChild>
+            <Button 
+              variant="outline" 
+              className="border-portfolio-purple text-portfolio-purple hover:bg-portfolio-purple/10 hover:text-portfolio-purple transition-all" 
+              asChild
+            >
               <a href="#contact">Get In Touch</a>
             </Button>
           </div>
           
           <div className="flex items-center space-x-5 mt-8">
-            <a href="#" className="text-gray-600 hover:text-portfolio-purple transition-colors">
+            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
               <Github size={20} />
             </a>
-            <a href="#" className="text-gray-600 hover:text-portfolio-purple transition-colors">
+            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
               <Linkedin size={20} />
             </a>
-            <a href="mailto:contact@rightsiman.com" className="text-gray-600 hover:text-portfolio-purple transition-colors">
+            <a href="mailto:contact@rightsiman.com" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
               <Mail size={20} />
             </a>
           </div>
-        </div>
+        </motion.div>
         
-        <div className="order-1 md:order-2 flex justify-center md:justify-end">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="order-1 md:order-2 flex justify-center md:justify-end"
+        >
           <div className="relative">
-            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-br from-portfolio-purple to-portfolio-blue opacity-10 absolute -top-4 -left-4"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
-              alt="Right Siman Jena" 
-              className="w-64 h-64 sm:w-80 sm:h-80 object-cover rounded-full border-4 border-white shadow-lg relative z-10"
-            />
-            <div className="absolute -bottom-6 -right-6 bg-white p-3 rounded-full shadow-lg z-20">
-              <div className="bg-portfolio-yellow w-16 h-16 rounded-full flex items-center justify-center text-portfolio-dark font-bold">
+            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-br from-portfolio-purple to-portfolio-blue opacity-10 absolute -top-4 -left-4 animate-pulse"></div>
+            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-10">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
+                alt="Right Siman Jena" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <motion.div 
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+              className="absolute -bottom-6 -right-6 bg-white p-3 rounded-full shadow-lg z-20"
+            >
+              <div className="bg-gradient-to-br from-portfolio-yellow to-portfolio-orange w-16 h-16 rounded-full flex items-center justify-center text-white font-bold">
                 MCA
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
       
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce"
+      >
         <p className="text-sm text-gray-500 mb-2">Scroll Down</p>
         <ArrowDown size={20} className="text-portfolio-purple" />
-      </div>
+      </motion.div>
     </section>
   );
 };
