@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const HeroSection = () => {
   return (
@@ -72,11 +73,14 @@ const HeroSection = () => {
           <div className="relative">
             <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-br from-portfolio-purple to-portfolio-blue opacity-10 absolute -top-4 -left-4 animate-pulse"></div>
             <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-10">
-              <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
-                alt="Right Siman Jena" 
-                className="w-full h-full object-cover"
-              />
+              <Avatar className="w-full h-full">
+                <AvatarImage 
+                  src="https://i.postimg.cc/jjdVMfN9/Right-Siman-Jena.jpg" 
+                  alt="Right Siman Jena" 
+                  className="w-full h-full object-cover"
+                />
+                <AvatarFallback className="text-3xl bg-portfolio-purple text-white">RSJ</AvatarFallback>
+              </Avatar>
             </div>
             <motion.div 
               initial={{ scale: 0, opacity: 0 }}
