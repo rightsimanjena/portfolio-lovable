@@ -1,3 +1,4 @@
+
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 const Footer = () => {
@@ -24,19 +25,19 @@ const Footer = () => {
               beautiful, functional, and user-friendly digital experiences.
             </p>
             <div className="flex space-x-4">
-              <motion.a href="#" whileHover={{
+              <motion.a href="https://github.com/username" target="_blank" rel="noopener noreferrer" whileHover={{
               y: -5,
               backgroundColor: "#9b87f5"
             }} className="p-2 bg-gray-800 rounded-full hover:bg-portfolio-purple transition-all">
                 <Github className="w-5 h-5" />
               </motion.a>
-              <motion.a href="#" whileHover={{
+              <motion.a href="https://www.linkedin.com/in/rightsimanjena/" target="_blank" rel="noopener noreferrer" whileHover={{
               y: -5,
               backgroundColor: "#9b87f5"
             }} className="p-2 bg-gray-800 rounded-full hover:bg-portfolio-purple transition-all">
                 <Linkedin className="w-5 h-5" />
               </motion.a>
-              <motion.a href="mailto:contact@rightsiman.com" whileHover={{
+              <motion.a href="mailto:rightsimanjena14@gmail.com" whileHover={{
               y: -5,
               backgroundColor: "#9b87f5"
             }} className="p-2 bg-gray-800 rounded-full hover:bg-portfolio-purple transition-all">
@@ -90,14 +91,14 @@ const Footer = () => {
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-gray-400 mb-1">Email</p>
-                <a href="mailto:contact@rightsiman.com" className="text-white hover:text-portfolio-purple transition-colors">rightsimanjena14@gmail.com</a>
+                <a href="mailto:rightsimanjena14@gmail.com" className="text-white hover:text-portfolio-purple transition-colors">rightsimanjena14@gmail.com</a>
               </div>
               <div>
                 <p className="text-sm text-gray-400 mb-1">Social Profiles</p>
                 <div className="flex items-center space-x-2">
-                  <a href="#" className="text-white hover:text-portfolio-purple transition-colors">GitHub</a>
+                  <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" className="text-white hover:text-portfolio-purple transition-colors">GitHub</a>
                   <span className="text-gray-600">•</span>
-                  <a href="#" className="text-white hover:text-portfolio-purple transition-colors">LinkedIn</a>
+                  <a href="https://www.linkedin.com/in/rightsimanjena/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-portfolio-purple transition-colors">LinkedIn</a>
                 </div>
               </div>
             </div>
