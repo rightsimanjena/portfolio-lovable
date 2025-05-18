@@ -1,9 +1,92 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Loader } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import emailjs from "emailjs-com";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+// Form schema for validation
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  subject: z.string().min(3, { message: "Subject must be at least 3 characters" }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
 const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Initialize form with react-hook-form and zod validation
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    }
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Initialize EmailJS with your public key
+      emailjs.init("G7IiPRbOGvnBBTDDl");
+      
+      // Prepare template parameters
+      const templateParams = {
+        from_name: data.name,
+        from_email: data.email,
+        subject: data.subject,
+        message: data.message
+      };
+      
+      // Send email using EmailJS
+      await emailjs.send(
+        "service_o79ley4",  // Service ID
+        "template_p6bf7ev", // Template ID
+        templateParams
+      );
+      
+      // Show success toast
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+        variant: "default"
+      });
+      
+      // Reset form fields
+      form.reset();
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // Show error toast
+      toast({
+        title: "Failed to send message",
+        description: "Please try again later or contact me directly via email.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
   return <section id="contact" className="section-padding bg-portfolio-purple/5 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -129,41 +212,99 @@ const ContactSection = () => {
           once: true
         }} className="bg-white rounded-xl p-8 shadow-xl">
             <h3 className="text-2xl font-bold mb-6">Send me a message</h3>
-            <form className="space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-gray-700 mb-1">Name</label>
-                  <Input id="name" placeholder="Your Name" />
+            
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="name" className="block text-gray-700 mb-1">Name</FormLabel>
+                        <FormControl>
+                          <Input id="name" placeholder="Your Name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor="email" className="block text-gray-700 mb-1">Email</FormLabel>
+                        <FormControl>
+                          <Input id="email" placeholder="Your Email" type="email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-gray-700 mb-1">Email</label>
-                  <Input id="email" placeholder="Your Email" type="email" />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-gray-700 mb-1">Subject</label>
-                <Input id="subject" placeholder="How can I help you?" />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-gray-700 mb-1">Message</label>
-                <Textarea id="message" placeholder="Let me know about your project..." className="min-h-[120px]" />
-              </div>
-              
-              <motion.div whileHover={{
-              scale: 1.03
-            }} whileTap={{
-              scale: 0.97
-            }}>
-                <Button className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue w-full hover:shadow-lg transition-all">
-                  Send Message
-                </Button>
-              </motion.div>
-            </form>
+                
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="subject" className="block text-gray-700 mb-1">Subject</FormLabel>
+                      <FormControl>
+                        <Input id="subject" placeholder="How can I help you?" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="message" className="block text-gray-700 mb-1">Message</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          id="message" 
+                          placeholder="Let me know about your project..." 
+                          className="min-h-[120px]" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <motion.div 
+                  whileHover={{ scale: 1.03 }} 
+                  whileTap={{ scale: 0.97 }}
+                  className="w-full"
+                >
+                  <Button 
+                    type="submit" 
+                    className="bg-gradient-to-r from-portfolio-purple to-portfolio-blue w-full hover:shadow-lg transition-all"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </Button>
+                </motion.div>
+              </form>
+            </Form>
+            
           </motion.div>
         </div>
       </div>
     </section>;
 };
+
 export default ContactSection;
