@@ -52,13 +52,13 @@ const HeroSection = () => {
           </div>
           
           <div className="flex items-center space-x-5 mt-8">
-            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
+            <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
               <Github size={20} />
             </a>
-            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
+            <a href="https://www.linkedin.com/in/rightsimanjena/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
               <Linkedin size={20} />
             </a>
-            <a href="mailto:contact@rightsiman.com" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
+            <a href="mailto:rightsimanjena14@gmail.com" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-md hover:shadow-xl transition-all hover:translate-y-[-2px] text-gray-600 hover:text-portfolio-purple">
               <Mail size={20} />
             </a>
           </div>
